@@ -1,0 +1,18 @@
+{
+    "name": "linwanfeng/jwt-php",
+    "description": "a jwt lib for php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "linwanfeng",
+            "email": "1836096205@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {"JwtPhp\\": "src"}
+    }
+}

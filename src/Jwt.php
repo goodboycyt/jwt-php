@@ -30,7 +30,7 @@ class Jwt
         $payload['jti'] = $this->jti;
         $payload = array_merge($payload, $this->publicPayload);
         $sign['payload'] = base64_encode(\json_encode($payload));
-        $sign['sign'] = hash_hmac('sha256', $sign['header'].'.'.$sign['payload'], $this->secret);
+        $sign['sign'] = hash_hmac('sha256', $sign['header'].md5($sign['payload']).$sign['payload'], $this->secret);//不采用jwt算法
         return \implode('.', $sign);
     }
     /**
@@ -116,7 +116,7 @@ class Jwt
             throw new \Exception('secret must not be empty');
         }
         $data = explode('.', $sign);
-        if (hash_hmac('sha256', $data[0].'.'.$data[1], $this->secret) === $data[2]) {
+        if (hash_hmac('sha256', $data[0].md5($data[1]).$data[1], $this->secret) === $data[2]) {
             $this->recPayload = \json_decode(base64_decode($data[1]), true);
             return true;
         } else {

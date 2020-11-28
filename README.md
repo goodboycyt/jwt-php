@@ -34,11 +34,11 @@ if ($a===true) {
 ```
 ### 验证签名是否过期
 ```php
-$exp = $jwt->getRecPd('exp');//调用此方法之前必须验证token真实性
-if ($exp < time()) {
-    echo "token过期";
-} else {
+$exp = $jwt->isExp();//调用此方法之前必须验证token真实性,return true or false
+if ($exp) {
     echo "token未过期";
+} else {
+    echo "token已过期";
 }
 ```
 

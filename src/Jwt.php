@@ -116,6 +116,10 @@ class Jwt
             throw new \Exception('secret must not be empty');
         }
         $data = explode('.', $sign);
+        if (count($data)!=3) {//not empty var
+            throw new \Exception('data struct error');
+        }
+
         if (hash_hmac('sha256', $data[0].md5($data[1]).$data[1], $this->secret) === $data[2]) {
             $this->recPayload = \json_decode(base64_decode($data[1]), true);
             return true;
@@ -182,6 +186,19 @@ class Jwt
             return $this->recPayload;
         } else {
             return isset($this->recPayload[$key])?$this->recPayload[$key]:false;
+        }
+    }
+
+
+    /**
+     * 是否过期
+     */
+    public function isExp()
+    {
+        if ($this->recPayload['exp']>time()) {
+            return false;
+        } else {
+            return true;
         }
     }
     //**************************************************私有变量

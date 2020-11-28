@@ -1,7 +1,9 @@
 ## jwt php lib
 
-### composer install
+### composer install  
 `composer require linwanfeng/jwt-php`
+
+不使用composer请参考src/JwtTest.php
 
 ### composer update
 `composer update linwanfeng/jwt-php`
